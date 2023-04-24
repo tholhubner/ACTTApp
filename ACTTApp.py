@@ -28,6 +28,7 @@ def acUpdate(deltaT):
 	laps = ac.getCarState(0, acsys.CS.LapCount)
 	lastLap = ac.getCarState(0, acsys.CS.LastLap)
 	lapInvalidated = ac.getCarState(0, acsys.CS.LapInvalidated)
+	ac.log("{} lap validation value RAW".format(str(lapInvalidated)))
 	if laps > lapcount:
 		ac.log("{} lap validation value".format(str(lapInvalidated)))
 		lapcount = laps
@@ -37,9 +38,11 @@ def acUpdate(deltaT):
 			lastLapTime = lastLap
 			ac.log("{} last lap in MS".format(str(lastLapTime)))
 			ac.setText(l_lastlaptime, "Last Lap: {}".format(str(lastLapTime)))
+			ac.setFontColor(l_lastlaptime, 0, 0, 0, 1)
 			validLaps.append(lastLapTime)
 			ac.log("{} valid laps array".format(str(validLaps)))
 		else:
 			lastLapTime = 0
 			ac.log("Last Lap was invalid")
 			ac.setText(l_lastlaptime, "Last Lap: Invalid Lap")
+			ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
