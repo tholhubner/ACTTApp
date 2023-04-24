@@ -11,7 +11,7 @@ validLaps=[]
 def acMain(ac_version):
 	global l_lapcount
 
-	appWindow = ac.newApp("appName")
+	appWindow = ac.newApp("ACTTApp")
 	ac.setSize(appWindow, 200, 200)
 
 	ac.log("Hello, Assetto Corsa application world!")
@@ -21,7 +21,7 @@ def acMain(ac_version):
 	l_lastlaptime = ac.addLabel(appWindow, "Last Lap: N/A")
 	ac.setPosition(l_lapcount, 3, 30)
 	ac.setPosition(l_lastlaptime, 3, 50)
-	return "appName"
+	return "ACTTApp"
 
 def acUpdate(deltaT):
 	global l_lapcount, l_lastlaptime, lapcount, lastLapTime
