@@ -28,15 +28,14 @@ def acMain(ac_version):
 	global l_lapcount
 
 	appWindow = ac.newApp("AC TT App")
-	ac.setSize(appWindow, 200, 200)
+	ac.setSize(appWindow, 150, 150)
 
-	ac.log("Hello, Assetto Corsa application world!")
-	ac.console("Hello, Assetto Corsa console!")
+	ac.log("Hello from AC TT!")
 
 	l_lapcount = ac.addLabel(appWindow, "Laps: 0")
 	l_lastlaptime = ac.addLabel(appWindow, "Last Lap: N/A")
 	ac.setPosition(l_lapcount, 3, 30)
-	ac.setPosition(l_lastlaptime, 3, 50)
+	ac.setPosition(l_lastlaptime, 3, 45)
 	return "AC TT App"
 
 def acUpdate(deltaT):
@@ -51,10 +50,9 @@ def acUpdate(deltaT):
 		ac.setText(l_lapcount, "Laps: {}".format(lapcount))
 		if lapInvalidated == False:
 			lastLapTime = lastLap
-			lapInvalidated = False
 			ac.log("{} last lap in MS".format(str(lastLapTime)))
-			ac.setText(l_lastlaptime, "Last Lap: Butt")
-			ac.setFontColor(l_lastlaptime, 0, 0, 0, 1)
+			ac.setText(l_lastlaptime, "Last Lap: Butthole")
+			# ac.setFontColor(l_lastlaptime, 0, 0, 0, 1)
 			validLaps.append(lastLapTime)
 			ac.log("{} valid laps array".format(str(validLaps)))
 		else:
@@ -62,4 +60,4 @@ def acUpdate(deltaT):
 			lapInvalidated = False
 			ac.log("Last Lap was invalid")
 			ac.setText(l_lastlaptime, "Last Lap: Invalid Lap")
-			ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
+			# ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
