@@ -32,6 +32,7 @@ def acUpdate(deltaT):
 	global time, l_lapcount, l_lastlaptime, lapcount, lastLapTime
 	time += deltaT
 	if time > 10:
+		ac.log("{} testing Info".format(info.physics))
 		laps = ac.getCarState(0, acsys.CS.LapCount)
 		lastLap = ac.getCarState(0, acsys.CS.LastLap)
 		if laps > lapcount:
