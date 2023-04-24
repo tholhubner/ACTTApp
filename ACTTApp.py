@@ -29,6 +29,7 @@ def acUpdate(deltaT):
 	lastLap = ac.getCarState(0, acsys.CS.LastLap)
 	lapInvalidated = ac.getCarState(0, acsys.CS.LapInvalidated)
 	if laps > lapcount:
+		ac.log("{} lap validation value".format(lapInvalidated))
 		lapcount = laps
 		ac.log("{} laps completed".format(lapcount))
 		ac.setText(l_lapcount, "Laps: {}".format(lapcount))
