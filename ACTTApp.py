@@ -24,29 +24,21 @@ def acMain(ac_version):
 	return "appName"
 
 def acUpdate(deltaT):
-	global l_lapcount, lapcount
+	global l_lapcount, l_lastlaptime, lapcount, lastLapTime
 	laps = ac.getCarState(0, acsys.CS.LapCount)
 	lastLap = ac.getCarState(0, acsys.CS.LastLap)
-	ac.log("{} raw last value".format(lastLap))
-	ac.console("{} raw last value".format(lastLap))
 	lapInvalidated = ac.getCarState(0, acsys.CS.LapInvalidated)
-	ac.log("{} raw last validated value".format(lapInvalidated))
-	ac.console("{} raw last validated value".format(lapInvalidated))
 	if laps > lapcount:
 		lapcount = laps
 		ac.log("{} laps completed".format(lapcount))
-		ac.console("{} laps completed".format(lapcount))
 		ac.setText(l_lapcount, "Laps: {}".format(lapcount))
-		if lapInvalidated == 0:
-			lastLapTime = lastLap
-			ac.log("{} last lap in MS".format(lastLapTime))
-			ac.console("{} last lap in MS".format(lastLapTime))
-			ac.setText(l_lastlaptime, "Last Lap: {}".format(lastLapTime))
-			validLaps.append(lastLapTime)
-			ac.log("{} valid laps array".format(validLaps))
-			ac.console("{} valid laps array".format(validLaps))
-		else:
-			lastLapTime = 0
-			ac.log("Last Lap was invalid")
-			ac.console("Last Lap was invalid")
-			ac.setText(l_lastlaptime, "Last Lap: Invalid Lap")
+	if not lapInvalidated:
+		lastLapTime = lastLap
+		ac.log("{} last lap in MS".format(str(lastLapTime)))
+		ac.setText(l_lastlaptime, "Last Lap: {}".format(str(lastLapTime)))
+		validLaps.append(lastLapTime)
+		ac.log("{} valid laps array".format(str(validLaps)))
+	else:
+		lastLapTime = 0
+		ac.log("Last Lap was invalid")
+		ac.setText(l_lastlaptime, "Last Lap: Invalid Lap")
