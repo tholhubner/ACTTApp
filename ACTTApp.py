@@ -70,9 +70,10 @@ def acUpdate(deltaT):
 def formatDate(time):
 	ac.log("Time in MS: {}".format(time))
 	formattedTime = datetime.fromtimestamp(time / 1000)
-	s = formattedTime.strftime('%Y-%m-%d %H:%M:%S.%f')
+	s = formattedTime.strftime('%M:%S.%f')
 	head = s[:-7]
 	tail = s[-7:]
+	ac.log("Testing: {0}{1}".format(head, tail))
 	f = float(tail)
 	temp = "{:.3f}".format(f)
 	new_tail = temp[1:]
