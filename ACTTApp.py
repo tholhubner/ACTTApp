@@ -55,7 +55,7 @@ def acUpdate(deltaT):
 			lastLapTime = lastLap
 			ac.log("{} last lap in MS".format(str(lastLapTime)))
 			formattedLapTime = formatDate(lastLapTime)
-			ac.setText(l_lastlaptime, "Last Lap: {0:%M:%S}.{1}".format(formattedLapTime, formattedLapTime.microsecond))
+			ac.setText(l_lastlaptime, "Last Lap: {0:%M:%S.%f}".format(formattedLapTime))
 			ac.setFontColor(l_lastlaptime, 1, 1, 1, 1)
 			validLaps.append(lastLapTime)
 			ac.log("{} valid laps array".format(str(validLaps)))
@@ -68,7 +68,12 @@ def acUpdate(deltaT):
 
 def formatDate(time):
 	ac.log("Time in MS: {}".format(time))
-	# formattedTime = datetime.datetime.fromtimestamp(time / 1000)
-	# ac.log("Formatted time: {}".format(formattedTime))
-	formattedTime = time / 1000
-	return formattedTime
+	formattedTime = datetime.datetime.fromtimestamp(time / 1000)
+	s = formattedTime.strftime('%Y-%m-%d %H:%M:%S.%f')
+	head = s[:-7]
+	tail = s[-7:]
+	f = float(tail)
+	temp = "{:.3f}".format(f)
+	new_tail = temp[1:]
+	ac.log("Formatted Time: {1}{2}".format(head, new_tail))
+	return head + new_tail
