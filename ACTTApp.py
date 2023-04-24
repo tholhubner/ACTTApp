@@ -1,6 +1,7 @@
 import sys
 import os
 import platform
+import datetime
 import ac
 import acsys
 
@@ -15,6 +16,8 @@ sys.path.insert(0, lib_dir)
 os.environ['PATH'] += ';.'
 
 from sim_info import info
+
+# format time: %M:%S
 
 l_lapcount=0
 l_lastlaptime=0
@@ -51,7 +54,7 @@ def acUpdate(deltaT):
 		if lapInvalidated == False:
 			lastLapTime = lastLap
 			ac.log("{} last lap in MS".format(str(lastLapTime)))
-			ac.setText(l_lastlaptime, "Last Lap: {}".format(str(lastLapTime)))
+			ac.setText(l_lastlaptime, "Last Lap: {}".format(formatDate(lastLapTime)))
 			ac.setFontColor(l_lastlaptime, 1, 1, 1, 1)
 			validLaps.append(lastLapTime)
 			ac.log("{} valid laps array".format(str(validLaps)))
@@ -61,3 +64,9 @@ def acUpdate(deltaT):
 			ac.log("Last Lap was invalid")
 			ac.setText(l_lastlaptime, "Last Lap: Invalid Lap")
 			ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
+
+def formatDate(time):
+	ac.log("Time in MS: {}".format(time))
+	formattedTime = datetime.datetime.fromtimestamp(time / 1000)
+	ac.log("Formatted time: {}".format(formattedTime))
+	return str(formattedTime)
