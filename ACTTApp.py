@@ -76,4 +76,4 @@ def formatDate(time):
 	temp = "{:.3f}".format(f)
 	new_tail = temp[1:]
 	ac.log("Formatted Time: {0}{1}".format(head, new_tail))
-	return head + new_tail
+	return datetime.datetime.fromtimestamp(head + new_tail)
