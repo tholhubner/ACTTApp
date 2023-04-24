@@ -44,7 +44,6 @@ def acUpdate(deltaT):
 	laps = ac.getCarState(0, acsys.CS.LapCount)
 	lastLap = ac.getCarState(0, acsys.CS.LastLap)
 	wheelsOff = info.physics.numberOfTyresOut
-	ac.log("Wheels off: {}".format(wheelsOff))
 	if wheelsOff > 3: lapInvalidated = True
 	if laps > lapcount:
 		lapcount = laps
