@@ -42,10 +42,10 @@ def acUpdate(deltaT):
 		lapcount = laps
 		ac.log("{} laps completed".format(lapcount))
 		ac.setText(l_lapcount, "Laps: {}".format(lapcount))
-		if not lapInvalidated:
+		if lapInvalidated == False:
 			lastLapTime = lastLap
 			ac.log("{} last lap in MS".format(str(lastLapTime)))
-			ac.setText(l_lastlaptime, "Last Lap: {}".format(str(lastLapTime)))
+			ac.setText(l_lastlaptime, "Last Lap: Butt")
 			ac.setFontColor(l_lastlaptime, 0, 0, 0, 1)
 			validLaps.append(lastLapTime)
 			ac.log("{} valid laps array".format(str(validLaps)))
