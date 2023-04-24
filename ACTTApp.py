@@ -44,16 +44,15 @@ def acUpdate(deltaT):
 	laps = ac.getCarState(0, acsys.CS.LapCount)
 	lastLap = ac.getCarState(0, acsys.CS.LastLap)
 	wheelsOff = info.physics.numberOfTyresOut
-	if wheelsOff < 4:
-		lapInvalidated = False
-	else:
-		lapInvalidated = True
+	ac.log("Wheels off: {}".format(wheelsOff))
+	if wheelsOff > 3: lapInvalidated = True
 	if laps > lapcount:
 		lapcount = laps
 		ac.log("{} laps completed".format(lapcount))
 		ac.setText(l_lapcount, "Laps: {}".format(lapcount))
 		if lapInvalidated == False:
 			lastLapTime = lastLap
+			lapInvalidated = False
 			ac.log("{} last lap in MS".format(str(lastLapTime)))
 			ac.setText(l_lastlaptime, "Last Lap: Butt")
 			ac.setFontColor(l_lastlaptime, 0, 0, 0, 1)
@@ -61,6 +60,7 @@ def acUpdate(deltaT):
 			ac.log("{} valid laps array".format(str(validLaps)))
 		else:
 			lastLapTime = 0
+			lapInvalidated = False
 			ac.log("Last Lap was invalid")
 			ac.setText(l_lastlaptime, "Last Lap: Invalid Lap")
 			ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
