@@ -27,7 +27,7 @@ def acMain(ac_version):
 def acUpdate(deltaT):
 	global time, l_lapcount, l_lastlaptime, lapcount, lastLapTime
 	time += deltaT
-	if (time > 1):
+	if time > 0.1:
 		laps = ac.getCarState(0, acsys.CS.LapCount)
 		lastLap = ac.getCarState(0, acsys.CS.LastLap)
 		ac.log("{} spline postion test".format(str(ac.getCarState(0, acsys.CS.NormalizedSplinePosition))))
