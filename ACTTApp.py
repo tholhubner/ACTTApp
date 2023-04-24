@@ -2,7 +2,16 @@ import sys
 import os
 import ac
 import acsys
-sys.path.insert(len(sys.path), "apps/python/ACTTApp/third_party")
+
+def get_lib_dir():
+	if platform.architecture()[0] == '64bit':
+		return 'lib64'
+	else:
+		return 'lib'
+	
+lib_dir = 'apps/python/ACTTApp/{}'.format(get_lib_dir())
+sys.path.insert(0, lib_dir)
+os.environ['PATH'] += ';.'
 
 from sim_info import info
 
