@@ -15,6 +15,7 @@ lib_dir = 'apps/python/ACTTApp/{}'.format(get_lib_dir())
 sys.path.insert(0, lib_dir)
 os.environ['PATH'] += ';.'
 
+from datetime import datetime
 from sim_info import info
 
 # format time: %M:%S
@@ -68,7 +69,7 @@ def acUpdate(deltaT):
 
 def formatDate(time):
 	ac.log("Time in MS: {}".format(time))
-	formattedTime = datetime.datetime.fromtimestamp(time / 1000)
+	formattedTime = datetime.fromtimestamp(time / 1000)
 	s = formattedTime.strftime('%Y-%m-%d %H:%M:%S.%f')
 	head = s[:-7]
 	tail = s[-7:]
@@ -76,4 +77,5 @@ def formatDate(time):
 	temp = "{:.3f}".format(f)
 	new_tail = temp[1:]
 	ac.log("Formatted Time: {0}{1}".format(head, new_tail))
-	return datetime.datetime.fromtimestamp(head + new_tail)
+
+	return datetime.fromisoformat(head + new_tail)
