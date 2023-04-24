@@ -25,16 +25,16 @@ validLaps=[]
 time=0
 
 def acMain(ac_version):
-	global l_lapcount
+	global l_lapcount, l_lastlaptime
 
 	appWindow = ac.newApp("AC TT App")
 	ac.setSize(appWindow, 200, 200)
 
 	ac.log("Hello from AC TT!")
 
-	# l_lapcount = ac.addLabel(appWindow, "Laps: 0")
+	l_lapcount = ac.addLabel(appWindow, "Laps: 0")
 	l_lastlaptime = ac.addLabel(appWindow, "Last Lap: ")
-	# ac.setPosition(l_lapcount, 3, 30)
+	ac.setPosition(l_lapcount, 3, 30)
 	ac.setPosition(l_lastlaptime, 3, 30)
 	return "AC TT App"
 
@@ -47,7 +47,7 @@ def acUpdate(deltaT):
 	if laps > lapcount:
 		lapcount = laps
 		ac.log("{} laps completed".format(lapcount))
-		# ac.setText(l_lapcount, "Laps: {}".format(lapcount))
+		ac.setText(l_lapcount, "Laps: {}".format(lapcount))
 		if lapInvalidated == False:
 			lastLapTime = lastLap
 			ac.log("{} last lap in MS".format(str(lastLapTime)))
