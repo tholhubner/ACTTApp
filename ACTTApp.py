@@ -1,6 +1,10 @@
 import sys
+import os
 import ac
 import acsys
+sys.path.insert(len(sys.path), "apps/python/ACTTApp/third_party")
+
+from sim_info import info
 
 l_lapcount=0
 l_lastlaptime=0
@@ -27,7 +31,7 @@ def acMain(ac_version):
 def acUpdate(deltaT):
 	global time, l_lapcount, l_lastlaptime, lapcount, lastLapTime
 	time += deltaT
-	if time > 0.1:
+	if time > 0.75:
 		laps = ac.getCarState(0, acsys.CS.LapCount)
 		lastLap = ac.getCarState(0, acsys.CS.LastLap)
 		ac.log("{} spline postion test".format(str(ac.getCarState(0, acsys.CS.NormalizedSplinePosition))))
@@ -51,5 +55,3 @@ def acUpdate(deltaT):
 				ac.setText(l_lastlaptime, "Last Lap: Invalid Lap")
 				ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
 				time = 0
-	else:
-		time = 0
