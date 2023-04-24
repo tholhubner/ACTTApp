@@ -32,9 +32,10 @@ def acUpdate(deltaT):
 	global time, l_lapcount, l_lastlaptime, lapcount, lastLapTime
 	time += deltaT
 	if time > 10:
-		ac.log("{} testing Info".format(info.physics))
+		ac.log("{} testing Info".format(str(info.physics)))
 		laps = ac.getCarState(0, acsys.CS.LapCount)
 		lastLap = ac.getCarState(0, acsys.CS.LastLap)
+		time = 0
 		if laps > lapcount:
 			lapcount = laps
 			ac.log("{} laps completed".format(lapcount))
@@ -48,10 +49,8 @@ def acUpdate(deltaT):
 				ac.setFontColor(l_lastlaptime, 0, 0, 0, 1)
 				validLaps.append(lastLapTime)
 				ac.log("{} valid laps array".format(str(validLaps)))
-				time = 0
 			else:
 				lastLapTime = 0
 				ac.log("Last Lap was invalid")
 				ac.setText(l_lastlaptime, "Last Lap: Invalid Lap")
 				ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
-				time = 0
