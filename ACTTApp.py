@@ -27,13 +27,13 @@ def acUpdate(deltaT):
 	global l_lapcount, l_lastlaptime, lapcount, lastLapTime
 	laps = ac.getCarState(0, acsys.CS.LapCount)
 	lastLap = ac.getCarState(0, acsys.CS.LastLap)
-	lapInvalidated = ac.getCarState(0, acsys.CS.LapInvalidated)
-	ac.log("{} lap validation value RAW".format(str(lapInvalidated)))
+	ac.log("{} spline postion test".format(str(ac.getCarState(0, acsys.CS.NormalizedSplinePosition))))
 	if laps > lapcount:
-		ac.log("{} lap validation value".format(str(lapInvalidated)))
 		lapcount = laps
 		ac.log("{} laps completed".format(lapcount))
 		ac.setText(l_lapcount, "Laps: {}".format(lapcount))
+		lapInvalidated = ac.getCarState(0, acsys.CS.LapInvalidated)
+		ac.log("{} lap validation value RAW".format(str(lapInvalidated)))
 		if not lapInvalidated:
 			lastLapTime = lastLap
 			ac.log("{} last lap in MS".format(str(lastLapTime)))
