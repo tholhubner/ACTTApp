@@ -32,10 +32,10 @@ def acMain(ac_version):
 
 	ac.log("Hello from AC TT!")
 
-	l_lapcount = ac.addLabel(appWindow, "Laps: 0")
+	# l_lapcount = ac.addLabel(appWindow, "Laps: 0")
 	l_lastlaptime = ac.addLabel(appWindow, "Last Lap: ")
-	ac.setPosition(l_lapcount, 3, 30)
-	ac.setPosition(l_lastlaptime, 3, 45)
+	# ac.setPosition(l_lapcount, 3, 30)
+	ac.setPosition(l_lastlaptime, 3, 30)
 	return "AC TT App"
 
 def acUpdate(deltaT):
