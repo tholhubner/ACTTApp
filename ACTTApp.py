@@ -10,6 +10,7 @@ l_lapcount=0
 l_lastlaptime=0
 lapcount=0
 lastLapTime=0
+lapInvalidated=False
 validLaps=[]
 time=0
 
@@ -29,19 +30,18 @@ def acMain(ac_version):
 	return "AC TT App"
 
 def acUpdate(deltaT):
-	global time, l_lapcount, l_lastlaptime, lapcount, lastLapTime
+	global time, l_lapcount, l_lastlaptime, lapcount, lastLapTime, lapInvalidated
 	laps = ac.getCarState(0, acsys.CS.LapCount)
 	lastLap = ac.getCarState(0, acsys.CS.LastLap)
-	time += deltaT
-	if time > 2:
-		ac.log("{} testing Info".format(str(info.physics.numberOfTyresOut)))
-		time = 0
+	wheelsOff = info.physics.numberOfTyresOut
+	if wheelsOff < 4:
+		lapInvalidated = False
+	else:
+		lapInvalidated = True
 	if laps > lapcount:
 		lapcount = laps
 		ac.log("{} laps completed".format(lapcount))
 		ac.setText(l_lapcount, "Laps: {}".format(lapcount))
-		lapInvalidated = ac.getCarState(0, acsys.CS.LapInvalidated)
-		ac.log("{} lap validation value RAW".format(str(lapInvalidated)))
 		if not lapInvalidated:
 			lastLapTime = lastLap
 			ac.log("{} last lap in MS".format(str(lastLapTime)))
