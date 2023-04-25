@@ -5,6 +5,7 @@ import datetime
 import json
 import ac
 import acsys
+import valve
 
 def get_lib_dir():
 	if platform.architecture()[0] == '64bit':
@@ -43,10 +44,7 @@ def acMain(ac_version):
 	l_lastlaptime = ac.addLabel(appWindow, "Last Lap: N/A")
 	ac.setPosition(l_lapcount, 3, 30)
 	ac.setPosition(l_lastlaptime, 3, 50)
-	ac.log("Available Info: {}".format(dir(info.static)))
-	ac.log("Player: {}".format(info.static.playerNick))
-	ac.log("Car Model: {}".format(info.static.carModel))
-	ac.log("Track: {}".format(info.static.track))
+	ac.log("Available Info: {}".format(dir(valve.steam.id)))
 
 	return "AC TT App"
 
