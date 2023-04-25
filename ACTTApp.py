@@ -18,8 +18,6 @@ os.environ['PATH'] += ';.'
 from datetime import datetime
 from sim_info import info
 
-# format time: %M:%S
-
 l_lapcount=0
 l_lastlaptime=0
 lapcount=0
@@ -30,18 +28,15 @@ time=0
 
 def acMain(ac_version):
 	global l_lapcount, l_lastlaptime
-
+	ac.log("Hello from AC TT!")
 	appWindow = ac.newApp("AC TT App")
 	ac.setSize(appWindow, 200, 200)
-
-	ac.log("Hello from AC TT!")
-
 	l_lapcount = ac.addLabel(appWindow, "Laps: 0")
 	l_lastlaptime = ac.addLabel(appWindow, "Last Lap: N/A")
 	ac.setPosition(l_lapcount, 3, 30)
 	ac.setPosition(l_lastlaptime, 3, 50)
-
 	ac.log("Available Info: {}".format(dir(info)))
+
 	return "AC TT App"
 
 def acUpdate(deltaT):
@@ -52,21 +47,18 @@ def acUpdate(deltaT):
 	if wheelsOff > 3: lapInvalidated = True
 	if laps > lapcount:
 		lapcount = laps
-		ac.log("{} laps completed".format(lapcount))
 		ac.setText(l_lapcount, "Laps: {}".format(lapcount))
 		if lapInvalidated == False:
 			lastLapTime = lastLap
-			ac.log("{} last lap in MS".format(str(lastLapTime)))
-			formattedLapTime = formatDate(lastLapTime)
-			ac.setText(l_lastlaptime, "Last Lap: {}".format(formattedLapTime))
+			ac.setText(l_lastlaptime, "Last Lap: {}".format(formatDate(lastLapTime)))
 			ac.setFontColor(l_lastlaptime, 1, 1, 1, 1)
 			validLaps.append(lastLapTime)
 			ac.log("{} valid laps array".format(str(validLaps)))
 		else:
-			lastLapTime = 0
 			lapInvalidated = False
+			lastLapTime = lastLap
 			ac.log("Last Lap was invalid")
-			ac.setText(l_lastlaptime, "Last Lap: Invalid Lap")
+			ac.setText(l_lastlaptime, "Last Lap: {}".format(formatDate(lastLapTime)))
 			ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
 
 def formatDate(time):
@@ -78,5 +70,4 @@ def formatDate(time):
 	f = float(tail)
 	temp = "{:.3f}".format(f)
 	new_tail = temp[1:]
-	ac.log("Formatted Time: {0}{1}".format(head, new_tail))
 	return head + new_tail
