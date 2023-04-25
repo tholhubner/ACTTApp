@@ -36,6 +36,9 @@ def acMain(ac_version):
 	ac.setPosition(l_lapcount, 3, 30)
 	ac.setPosition(l_lastlaptime, 3, 50)
 	ac.log("Available Info: {}".format(dir(info.static)))
+	ac.log("Player: {}".format(info.static.playerNick))
+	ac.log("Car Model: {}".format(info.static.carModel))
+	ac.log("Track: {}".format(info.static.track))
 
 	return "AC TT App"
 
