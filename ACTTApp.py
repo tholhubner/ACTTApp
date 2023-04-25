@@ -2,6 +2,7 @@ import sys
 import os
 import platform
 import datetime
+import json
 import ac
 import acsys
 
@@ -25,6 +26,13 @@ lastLapTime=0
 lapInvalidated=False
 validLaps=[]
 time=0
+
+class sessionValues:
+	def __init__(self, name, car, track, laps):
+		self.name = name
+		self.car = car
+		self.track = track
+		self.laps = laps
 
 def acMain(ac_version):
 	global l_lapcount, l_lastlaptime
@@ -57,12 +65,18 @@ def acUpdate(deltaT):
 			ac.setFontColor(l_lastlaptime, 1, 1, 1, 1)
 			validLaps.append(lastLapTime)
 			ac.log("{} valid laps array".format(str(validLaps)))
+			finished = sessionValues(info.static.playerNick, info.static.carModel, info.static.track, validLaps)
+			ac.log(json.dump(finished))
 		else:
 			lapInvalidated = False
 			lastLapTime = lastLap
 			ac.log("Last Lap was invalid")
 			ac.setText(l_lastlaptime, "Last Lap: {}".format(formatDate(lastLapTime)))
 			ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
+
+def acShutdown():
+	finished = sessionValues(info.static.playerNick, info.static.carModel, info.static.track, validLaps)
+	ac.log(json.dump(finished))
 
 def formatDate(time):
 	ac.log("Time in MS: {}".format(time))
