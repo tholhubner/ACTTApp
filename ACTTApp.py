@@ -35,7 +35,7 @@ def acMain(ac_version):
 	l_lastlaptime = ac.addLabel(appWindow, "Last Lap: N/A")
 	ac.setPosition(l_lapcount, 3, 30)
 	ac.setPosition(l_lastlaptime, 3, 50)
-	ac.log("Available Info: {}".format(dir(info)))
+	ac.log("Available Info: {}".format(dir(info.static)))
 
 	return "AC TT App"
 
