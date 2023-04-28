@@ -5,7 +5,7 @@ import datetime
 import json
 import ac
 import acsys
-import valve
+import requests
 
 def get_lib_dir():
 	if platform.architecture()[0] == '64bit':
@@ -16,6 +16,8 @@ def get_lib_dir():
 lib_dir = 'apps/python/ACTTApp/{}'.format(get_lib_dir())
 sys.path.insert(0, lib_dir)
 os.environ['PATH'] += ';.'
+
+requestsUrl = 'http://http://137.184.145.119/api/raw_data'
 
 from datetime import datetime
 from sim_info import info
@@ -48,7 +50,6 @@ def acMain(ac_version):
 	ac.setPosition(l_lapcount, 3, 30)
 	ac.setPosition(l_lastlaptime, 3, 50)
 	ac.setPosition(l_lapcountmet, 3, 70)
-	ac.log("Available Info: {}".format(dir(valve.steam.id)))
 
 	return "AC TT App"
 
@@ -79,8 +80,16 @@ def acUpdate(deltaT):
 			ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
 
 def acShutdown():
-	finished = sessionValues(info.static.playerNick, info.static.carModel, info.static.track, validLaps)
-	ac.log(json.dump(finished))
+	finished = {
+		"name": info.static.playerNick,
+		"car_model": info.static.carModel,
+		"track": info.static.track,
+		"laps": validLaps
+	}
+	ac.log(json.dumps(finished))
+	jsonVals = json.dumps(finished)
+	x = requests.post(requestsUrl, data={'intake_data': jsonVals})
+	ac.log('Response from server: {}'.format(x.status_code))
 
 def formatDate(time):
 	ac.log("Time in MS: {}".format(time))
