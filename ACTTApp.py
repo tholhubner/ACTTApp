@@ -66,7 +66,7 @@ def acUpdate(deltaT):
 			ac.setText(l_lastlaptime, "Last Lap: {}".format(formatDate(lastLapTime)))
 			ac.setFontColor(l_lastlaptime, 1, 1, 1, 1)
 			validLaps.append(lastLapTime)
-			if validLaps.__len__ > 4:
+			if len(validLaps) > 4:
 				ac.setFontColor(l_lastlaptime, 0, 1, 0, 1)
 			ac.log("{} valid laps array".format(str(validLaps)))
 			finished = sessionValues(info.static.playerNick, info.static.carModel, info.static.track, validLaps)
