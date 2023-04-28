@@ -22,6 +22,7 @@ from sim_info import info
 
 l_lapcount=0
 l_lastlaptime=0
+l_lapcountmet=0
 lapcount=0
 lastLapTime=0
 lapInvalidated=False
@@ -42,8 +43,11 @@ def acMain(ac_version):
 	ac.setSize(appWindow, 200, 200)
 	l_lapcount = ac.addLabel(appWindow, "Laps: 0")
 	l_lastlaptime = ac.addLabel(appWindow, "Last Lap: N/A")
+	l_lapcountmet = ac.addLabel(appWindow, "5 Valid Laps Complete")
 	ac.setPosition(l_lapcount, 3, 30)
 	ac.setPosition(l_lastlaptime, 3, 50)
+	ac.setPosition(l_lapcountmet, 3, 70)
+	ac.setFontColor(l_lastlaptime, 0, 1, 0, 0)
 	ac.log("Available Info: {}".format(dir(valve.steam.id)))
 
 	return "AC TT App"
@@ -62,6 +66,8 @@ def acUpdate(deltaT):
 			ac.setText(l_lastlaptime, "Last Lap: {}".format(formatDate(lastLapTime)))
 			ac.setFontColor(l_lastlaptime, 1, 1, 1, 1)
 			validLaps.append(lastLapTime)
+			if validLaps.__len__ > 4:
+				ac.setFontColor(l_lastlaptime, 0, 1, 0, 1)
 			ac.log("{} valid laps array".format(str(validLaps)))
 			finished = sessionValues(info.static.playerNick, info.static.carModel, info.static.track, validLaps)
 			ac.log(json.dump(finished))
