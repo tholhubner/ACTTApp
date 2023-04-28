@@ -25,6 +25,7 @@ from sim_info import info
 l_lapcount=0
 l_lastlaptime=0
 l_lapcountmet=0
+b_sendbutton=0
 lapcount=0
 lastLapTime=0
 lapInvalidated=False
@@ -46,10 +47,13 @@ def acMain(ac_version):
 	l_lapcount = ac.addLabel(appWindow, "Laps: 0")
 	l_lastlaptime = ac.addLabel(appWindow, "Last Lap: N/A")
 	l_lapcountmet = ac.addLabel(appWindow, "5 Valid Laps Complete")
+	b_sendbutton = ac.addButton(appWindow, "Send Data")
 	ac.setFontColor(l_lastlaptime, 0, 1, 0, 0)
 	ac.setPosition(l_lapcount, 3, 30)
 	ac.setPosition(l_lastlaptime, 3, 50)
 	ac.setPosition(l_lapcountmet, 3, 70)
+	ac.setPosition(b_sendbutton, 3, 90)
+	ac.addOnClickedListener(b_sendbutton, onSendButtonPress)
 
 	return "AC TT App"
 
@@ -79,17 +83,17 @@ def acUpdate(deltaT):
 			ac.setText(l_lastlaptime, "Last Lap: {}".format(formatDate(lastLapTime)))
 			ac.setFontColor(l_lastlaptime, 1, 0, 0, 1)
 
-def acShutdown():
-	finished = {
-		"name": info.static.playerNick,
-		"car_model": info.static.carModel,
-		"track": info.static.track,
-		"laps": validLaps
-	}
-	ac.log(json.dumps(finished))
-	jsonVals = json.dumps(finished)
-	x = requests.post(requestsUrl, data={'intake_data': jsonVals})
-	ac.log('Response from server: {}'.format(x.status_code))
+# def acShutdown():
+	# finished = {
+	# 	"name": info.static.playerNick,
+	# 	"car_model": info.static.carModel,
+	# 	"track": info.static.track,
+	# 	"laps": validLaps
+	# }
+	# ac.log(json.dumps(finished))
+	# jsonVals = json.dumps(finished)
+	# x = requests.post(requestsUrl, data={'intake_data': jsonVals})
+	# ac.log('Response from server: {}'.format(x.status_code))
 
 def formatDate(time):
 	ac.log("Time in MS: {}".format(time))
@@ -101,3 +105,15 @@ def formatDate(time):
 	temp = "{:.3f}".format(f)
 	new_tail = temp[1:]
 	return head + new_tail
+
+def onSendButtonPress():
+	finished = {
+		"name": info.static.playerNick,
+		"car_model": info.static.carModel,
+		"track": info.static.track,
+		"laps": validLaps
+	}
+	ac.log(json.dumps(finished))
+	jsonVals = json.dumps(finished)
+	x = requests.post(requestsUrl, data={'intake_data': jsonVals})
+	ac.log('Response from server: {}'.format(x.status_code))
