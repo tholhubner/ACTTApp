@@ -1,11 +1,11 @@
 import sys
 import os
+import requests
 import platform
 import datetime
 import json
 import ac
 import acsys
-import requests
 
 def get_lib_dir():
 	if platform.architecture()[0] == '64bit':
@@ -40,7 +40,7 @@ class sessionValues:
 		self.laps = laps
 
 def acMain(ac_version):
-	global l_lapcount, l_lastlaptime
+	global l_lapcount, l_lastlaptime, b_sendbutton
 	ac.log("Hello from AC TT!")
 	appWindow = ac.newApp("AC TT App")
 	ac.setSize(appWindow, 200, 200)
